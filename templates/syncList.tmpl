@@ -1,0 +1,23 @@
+<h1>ninya.io | Operations</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Target</th>
+            <th>Task ID</th>
+            <th>Task started</th>
+            <th>Synced entities</th>
+            <th>Entities per hour</th>
+            <th>Estimated end</th>
+        </tr>
+    </thead>
+    {{ range . }}
+    <tr>
+        <td>{{ .Index }}</td>
+        <td>{{ .Target }}</td>
+        <td>{{ .TaskId }}</td>
+        <td>{{ .TaskStarted }}</td>
+    </tr>
+    {{ end }}
+</table>
