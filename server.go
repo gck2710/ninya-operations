@@ -36,13 +36,12 @@ func main() {
             infos := []SyncInfo{}
 
             for _, hit := range out.Hits.Hits {
-                var myHit SyncInfo
+                var syncInfo SyncInfo
 
-                jsonStr, _ := hit.Source.MarshalJSON()
-                json.Unmarshal(jsonStr, &myHit)
-                myHit.Index = len(infos) + 1
-                myHit.TaskStarted = myHit.TaskId
-                infos = append(infos, myHit)
+                json.Unmarshal(*hit.Source, &syncInfo)
+                syncInfo.Index = len(infos) + 1
+                syncInfo.TaskStarted = syncInfo.TaskId
+                infos = append(infos, syncInfo)
             }
 
             r.HTML(200, "syncList", infos)
