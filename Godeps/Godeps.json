@@ -1,5 +1,5 @@
 {
-	"ImportPath": "ninya-operations",
+	"ImportPath": "github.com/ninya-io/ninya-operations",
 	"GoVersion": "go1.2.1",
 	"Deps": [
 		{
