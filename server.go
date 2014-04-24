@@ -5,7 +5,9 @@ import (
     "github.com/go-martini/martini"
     "github.com/martini-contrib/render"
     "github.com/mattbaird/elastigo/api"
-    "github.com/mattbaird/elastigo/core"
+    ecCore "github.com/mattbaird/elastigo/core"
+    "github.com/ninya-io/ninya-operations/core"
+    "github.com/ninya-io/ninya-operations/format"
     "os"
     "time"
 )
@@ -23,14 +25,14 @@ func main() {
 
     m.Get("/", func(r render.Render) {
 
-        out, _ := core.SearchRequest(index, "info", nil, nil)
+        out, _ := ecCore.SearchRequest(index, "info", nil, nil)
 
         if len(out.Hits.Hits) > 0 {
 
-            infos := []SyncInfo{}
+            infos := []core.SyncInfo{}
 
             for _, hit := range out.Hits.Hits {
-                var syncInfo SyncInfo
+                var syncInfo core.SyncInfo
 
                 json.Unmarshal(*hit.Source, &syncInfo)
                 syncInfo.Index = len(infos) + 1
@@ -39,7 +41,7 @@ func main() {
                 syncInfo.TaskStarted = time.Unix(int64(syncInfo.TaskId/1000), 0).Format(layout)
 
                 secondsElapsed := (int(time.Now().Unix()) - (syncInfo.TaskId / 1000))
-                syncInfo.ElapsedTime = formatDuration(secondsElapsed)
+                syncInfo.ElapsedTime = format.Duration(secondsElapsed)
 
                 infos = append(infos, syncInfo)
             }

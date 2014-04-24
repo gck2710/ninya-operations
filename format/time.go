@@ -1,11 +1,11 @@
-package main
+package format
 
 import (
     "fmt"
     "time"
 )
 
-func formatDuration(secondsElapsed int) string {
+func Duration(secondsElapsed int) string {
     duration := time.Duration(secondsElapsed) * time.Second
     days := int(duration.Hours() / 24)
     hours := int(duration.Hours()) - (days * 24)
