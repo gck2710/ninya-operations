@@ -7,14 +7,8 @@ import (
     "github.com/mattbaird/elastigo/api"
     "github.com/mattbaird/elastigo/core"
     "os"
+    "time"
 )
-
-type SyncInfo struct {
-    Index       int
-    Target      string
-    TaskId      int
-    TaskStarted int
-}
 
 func main() {
     api.Domain = os.Getenv("ES_ENDPOINT")
@@ -40,7 +34,13 @@ func main() {
 
                 json.Unmarshal(*hit.Source, &syncInfo)
                 syncInfo.Index = len(infos) + 1
-                syncInfo.TaskStarted = syncInfo.TaskId
+
+                const layout = "Jan 2, 2006 at 3:04pm (MST)"
+                syncInfo.TaskStarted = time.Unix(int64(syncInfo.TaskId/1000), 0).Format(layout)
+
+                secondsElapsed := (int(time.Now().Unix()) - (syncInfo.TaskId / 1000))
+                syncInfo.ElapsedTime = formatDuration(secondsElapsed)
+
                 infos = append(infos, syncInfo)
             }
 

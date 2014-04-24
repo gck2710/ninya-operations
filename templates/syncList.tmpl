@@ -7,6 +7,7 @@
             <th>Target</th>
             <th>Task ID</th>
             <th>Task started</th>
+            <th>Elapsed time</th>
             <th>Synced entities</th>
             <th>Entities per hour</th>
             <th>Estimated end</th>
@@ -18,6 +19,7 @@
         <td>{{ .Target }}</td>
         <td>{{ .TaskId }}</td>
         <td>{{ .TaskStarted }}</td>
+        <td>{{ .ElapsedTime }}</td>
     </tr>
     {{ end }}
 </table>
