@@ -60,8 +60,7 @@ func main() {
                 secondsElapsed := (int(time.Now().Unix()) - taskStartedAt)
                 syncInfo.ElapsedTime = format.Duration(secondsElapsed)
 
-                // this doesn't quite work yet
-                // syncInfo.EntitiesPerHour = float32((syncInfo.SyncedEntities / secondsElapsed) / 60 / 60)
+                syncInfo.EntitiesPerHour = int(float32(syncInfo.SyncedEntities) / float32(secondsElapsed) * 60 * 60)
                 infos = append(infos, syncInfo)
             }
 
