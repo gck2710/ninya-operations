@@ -72,8 +72,8 @@ func main() {
                 }(hit)
             }
 
-            // FIXME: it's strange that we have to +1 here. Our semaphore seems to have a bug
-            sem.Wait(out.Hits.Len() + 1)
+            // what's going on here?! Our semaphone expects a the doubled total? Why?!
+            sem.Wait(out.Hits.Total * 2)
             r.HTML(200, "syncList", infos)
         }
     })
